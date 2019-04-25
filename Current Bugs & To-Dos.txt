@@ -1,0 +1,10 @@
+Bugs:
+- Random firing leads to some enemies not playing any animations
+
+To-Dos: 
+- Lives Counter  
+- Hexagon and Star unique functions
+- High Score Screen
+
+Future Stuff:
+- Different Game Modes

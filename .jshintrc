@@ -1,0 +1,15 @@
+{
+    "esversion": 6,
+    "strict":"implied",
+    "browser":true,
+    "devel":true,
+    "globals":{
+        "createjs":false,
+        "manifest":true,
+        "Mover":false,
+        "AssetManager":false,
+        "IntroScreen":false,
+        "ContentScreen":false,
+        "EndScreen":false
+    }
+}
