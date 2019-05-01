@@ -19,12 +19,16 @@
     let scoreCaption = null;
     let scoreTotal = null;
     
+    
     //score of the game
     let score = 0;
 
     //maximum enemies that the screen can have
     const MAX_ENEMIES = 75;
     let enemies = [];
+
+    //the EnemyManager
+    let enemyManager = null;
 
     //timers used to spawn enemies
     let circleTimer = null;
@@ -172,6 +176,10 @@
             enemies.push(new Enemy(stage,player,assetManager));
         }
 
+        //construct enemyManager
+        enemyManager = new EnemyManager(enemies);
+        //enemyManager.resetMe();
+
         //listen for start of game and game over 
         background.on("click", onStartGame);
         stage.on("playerKilled", onGameOver);
@@ -208,6 +216,8 @@
         //setup event listeners for keyboard keys
         document.onkeydown = onKeyDown;
         document.onkeyup = onKeyUp;
+
+        //enemyManager.startGame();
 
         //setup the circle timer here, since the circle is always in play
         circleTimer = window.setInterval(()=>{
