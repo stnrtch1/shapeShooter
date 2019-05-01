@@ -1,5 +1,7 @@
 Bugs:
 - Random firing leads to some enemies not playing any animations
+- Squares and rectangles are still getting points, even if they hit the player
+- Some bullets are still disappearing, but not that often
 
 To-Dos: 
 - Lives Counter  
