@@ -28,7 +28,6 @@ class EnemyManager{
         this._hexagonDelay = 12000;
         this._TIMERDECREASE = 0;
 
-        
     }
 
     //-------------------------------------------------------------- reset/setup/end methods
@@ -63,8 +62,8 @@ class EnemyManager{
             }
         }, this._circleDelay);
 
-        //setup the timer for adding new enemies into the game
-        this._newEnemyTimer = window.setInterval(this.newEnemy,this._NEWENEMYDELAY);
+        this._newEnemyTimer = window.setInterval(()=>{this.newEnemy();},this._NEWENEMYDELAY);
+
     }
 
     endGame(){
@@ -121,7 +120,7 @@ class EnemyManager{
         }
 
         if(this._enemyTypes == 5){
-            this._hexagonTimer = this._window.setInterval(()=>{
+            this._hexagonTimer = window.setInterval(()=>{
                 for (let i=0; i<this._enemies.length;i++){
                     let newEnemy = this._enemies[i];
                     if (newEnemy.active === false){
