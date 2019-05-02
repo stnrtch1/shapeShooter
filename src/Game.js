@@ -30,27 +30,6 @@
     //the EnemyManager
     let enemyManager = null;
 
-    //timers used to spawn enemies
-    let circleTimer = null;
-    let squareTimer = null;
-    let starTimer = null;
-    let rectangleTimer = null;
-    let hexagonTimer = null;
-    let circleDelay = 2000;
-    let squareDelay = 5000;
-    let starDelay = 7000;
-    let rectangleDelay = 15000;
-    let hexagonDelay = 12000;
-    let TIMERDECREASE = 0;
-
-    let stopTimers = false;
-
-    //timer to add in more enemy types
-    let newEnemyTimer = null;
-    let NEWENEMYDELAY = 15000;
-    let enemyTypes = 1;
-
-
     //maximum amount of bullets the player can have
     const MAX_BULLETS = 25;
     let bullets = [];
@@ -178,7 +157,6 @@
 
         //construct enemyManager
         enemyManager = new EnemyManager(enemies);
-        //enemyManager.resetMe();
 
         //listen for start of game and game over 
         background.on("click", onStartGame);
@@ -217,89 +195,14 @@
         document.onkeydown = onKeyDown;
         document.onkeyup = onKeyUp;
 
-        //enemyManager.startGame();
-
-        //setup the circle timer here, since the circle is always in play
-        circleTimer = window.setInterval(()=>{
-            //find an inactive enemy and make it a circle
-            for (let i=0; i<enemies.length;i++){
-                let newEnemy = enemies[i];
-                if (newEnemy.active === false){
-                    newEnemy.active = true;
-                    newEnemy.createEnemy("Circle");
-                    break;
-                }
-            }
-        }, circleDelay);
-        //set a timer for adding new enemies into the game
-        newEnemyTimer = window.setInterval(newEnemy,NEWENEMYDELAY);
-    }
-
-    function newEnemy(){
-        //add a new enemy into the game
-        enemyTypes++;
-        if (enemyTypes == 2){
-            squareTimer = window.setInterval(()=>{
-                for (let i=0; i<enemies.length;i++){
-                    let newEnemy = enemies[i];
-                    if (newEnemy.active === false){
-                        newEnemy.active = true;
-                        newEnemy.createEnemy("Square");
-                        break;
-                    }
-                }
-            }, squareDelay); 
-        }
-        
-        if(enemyTypes == 3){
-            starTimer = window.setInterval(()=>{
-                for (let i=0; i<enemies.length;i++){
-                    let newEnemy = enemies[i];
-                    if (newEnemy.active === false){
-                        newEnemy.active = true;
-                        newEnemy.createEnemy("Star");
-                        break;
-                    }
-                }
-            }, starDelay);
-        }
-
-        if(enemyTypes == 4){
-            rectangleTimer = window.setInterval(()=>{
-                for (let i=0; i<enemies.length;i++){
-                    let newEnemy = enemies[i];
-                    if (newEnemy.active === false){
-                        newEnemy.active = true;
-                        newEnemy.createEnemy("Rectangle");
-                        break;
-                    }
-                }
-            }, rectangleDelay); 
-        }
-
-        if(enemyTypes == 5){
-            hexagonTimer = window.setInterval(()=>{
-                for (let i=0; i<enemies.length;i++){
-                    let newEnemy = enemies[i];
-                    if (newEnemy.active === false){
-                        newEnemy.active = true;
-                        newEnemy.createEnemy("Hexagon");
-                        break;
-                    }
-                }
-            }, hexagonDelay);
-
-            //this is the last enemy to add, so remove the new enemy timer
-            window.clearInterval(newEnemyTimer);
-        } 
+        enemyManager.startGame();
     }
 
     function onGameOver(){
         //show game over screen
         stage.addChild(gameOverCaption);
 
-        stopTimers = true;
-        delayTimers();
+        enemyManager.endGame();
 
         //setup reset game listener
         background.on("click", onResetGame);
@@ -320,10 +223,9 @@
         //set the score back to 0
         score = 0;
         scoreTotal.text = String(score);
-        //set enemyTypes back to 1
-        enemyTypes = 1;
-
-        stopTimers = false;
+        
+        //reset the enemyManager
+        enemyManager.resetGame();
 
         //bring back the intro screen
         stage.removeChild(gameOverCaption);
@@ -346,107 +248,12 @@
 
         //for every 3000 points the player earns, the enemies spawn a little faster
         if ((score % 3000) === 0){
-            TIMERDECREASE = TIMERDECREASE + 100;
-            delayTimers();
+            enemyManager.increaseSpawn();
         }
 
         //set the text of the score
         scoreTotal.text = String(score);
 
-    }
-
-    function delayTimers(){
-        if(stopTimers){
-            //the game is over, clear all timers
-            window.clearInterval(newEnemyTimer);
-            window.clearInterval(circleTimer);
-            window.clearInterval(squareTimer);
-            window.clearInterval(starTimer);
-            window.clearInterval(rectangleTimer);
-            window.clearInterval(hexagonTimer);
-            //reset the delays as well
-            circleDelay = 2000;
-            squareDelay = 5000;
-            starDelay = 7000;
-            rectangleDelay = 15000;
-            hexagonDelay = 12000;
-            TIMERDECREASE = 0;
-        }else{
-            //reset all the timers to use a faster time
-            //but, keep have a minimum time for each enemy
-            if (circleDelay > 1000){
-                circleDelay = circleDelay - TIMERDECREASE;
-                window.clearInterval(circleTimer);
-                circleTimer = window.setInterval(()=>{
-                    //find an inactive enemy and make it a circle
-                    for (let i=0; i<enemies.length;i++){
-                        let newEnemy = enemies[i];
-                        if (newEnemy.active === false){
-                            newEnemy.active = true;
-                            newEnemy.createEnemy("Circle");
-                            break;
-                        }
-                    }
-                }, circleDelay);
-            }
-            if(squareDelay > 2000){
-                squareDelay = squareDelay - TIMERDECREASE;
-                window.clearInterval(squareTimer);
-                squareTimer = window.setInterval(()=>{
-                    for (let i=0; i<enemies.length;i++){
-                        let newEnemy = enemies[i];
-                        if (newEnemy.active === false){
-                            newEnemy.active = true;
-                            newEnemy.createEnemy("Square");
-                            break;
-                        }
-                    }
-                }, squareDelay);
-            }
-            if(starDelay > 3000){
-                starDelay = starDelay - TIMERDECREASE;
-                window.clearInterval(starTimer);
-                starTimer = window.setInterval(()=>{
-                    for (let i=0; i<enemies.length;i++){
-                        let newEnemy = enemies[i];
-                        if (newEnemy.active === false){
-                            newEnemy.active = true;
-                            newEnemy.createEnemy("Star");
-                            break;
-                        }
-                    }
-                }, starDelay);
-            }
-            if(rectangleDelay > 5000){
-                rectangleDelay = rectangleDelay - TIMERDECREASE;
-                window.clearInterval(rectangleTimer);
-                rectangleTimer = window.setInterval(()=>{
-                    for (let i=0; i<enemies.length;i++){
-                        let newEnemy = enemies[i];
-                        if (newEnemy.active === false){
-                            newEnemy.active = true;
-                            newEnemy.createEnemy("Rectangle");
-                            break;
-                        }
-                    }
-                }, rectangleDelay);
-            }
-            if(hexagonDelay > 5000){
-                hexagonDelay = hexagonDelay - TIMERDECREASE;
-                window.clearInterval(hexagonTimer);
-                hexagonTimer = window.setInterval(()=>{
-                    for (let i=0; i<enemies.length;i++){
-                        let newEnemy = enemies[i];
-                        if (newEnemy.active === false){
-                            newEnemy.active = true;
-                            newEnemy.createEnemy("Hexagon");
-                            break;
-                        }
-                    }
-                }, hexagonDelay);
-            }
-        }
-        
     }
 
     function onTick(){
