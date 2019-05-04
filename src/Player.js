@@ -31,6 +31,7 @@ class Player{
 
         //construct custom events
         this._eventPlayerKilled = new createjs.Event("playerKilled",true);
+        this._eventPlayerGameOver = new createjs.Event("playerGameOver",true);
 
         //if the player is hit, listen for the event
         this._sprite.on("playerHit", this.hitMe, this);
@@ -222,12 +223,13 @@ class Player{
         //console.log("Lives Left: " + this._lives);
         if (this._lives != 0){
            //reset the player
+           this._stage.dispatchEvent(this._eventPlayerKilled);
            this.setupMe();
            return;
         } else{
             this._stage.removeChild(this._sprite);
             //tell the stage that the game is over
-            this._stage.dispatchEvent(this._eventPlayerKilled);
+            this._stage.dispatchEvent(this._eventPlayerGameOver);
         }
 
     }

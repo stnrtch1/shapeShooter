@@ -158,9 +158,10 @@
         //construct enemyManager
         enemyManager = new EnemyManager(enemies);
 
-        //listen for start of game and game over 
+        //listen for events
         background.on("click", onStartGame);
-        stage.on("playerKilled", onGameOver);
+        stage.on("playerKilled", onKilled);
+        stage.on("playerGameOver", onGameOver);
 
         //listen for enemy deaths
         stage.on("circleKilled", () => addPoints("Circle"));
