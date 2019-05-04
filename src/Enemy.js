@@ -231,8 +231,10 @@ class Enemy{
         if ((this._type == "Circle" || this._type == "Square" || this._type == "Star") && (c <= 48)){
             //send out the event
             this._playerSprite.dispatchEvent(this._eventPlayerHit);
+            this._didHit = true;
         } else if (this._type == "Rectangle" && (c <= 70)){
             this._playerSprite.dispatchEvent(this._eventPlayerHit);
+            this._didHit = true;
         } else if (this._type == "Hexagon" && (c <= 25)){
             this._playerSprite.dispatchEvent(this._eventPlayerHit);
         }

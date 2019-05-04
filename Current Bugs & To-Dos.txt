@@ -1,7 +1,6 @@
 Bugs:
 - Random firing leads to some enemies not playing any animations
-- Squares and rectangles are still getting points, even if they hit the player
-- Some bullets are still disappearing, but not that often
+- When an ememy is killed and playing their death animation, the player can not shoot any bullets until that animation ends.
 
 To-Dos: 
 - Lives Counter  
