@@ -299,7 +299,7 @@ class Enemy{
         this._active = false;
         this._stage.removeChild(this._sprite);
         //if a square or rectangle did not hit the player, reward some points for it
-        if ((this._type == "Square" || this._type == "Rectangle") && this._didHit == false){
+        if ((this._type == "Square" || this._type == "Rectangle") && this._didHit == false && this._player.killed != true){
             this._stage.dispatchEvent(this._deadEvent);
         }
         

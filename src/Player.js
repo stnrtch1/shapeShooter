@@ -54,7 +54,7 @@ class Player{
     get killed() {
         return this._killed;
     }
-
+    
     get lives(){
         return this._lives;
     }
