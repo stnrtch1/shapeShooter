@@ -21,9 +21,13 @@
     let livesTotal = null;
     let playerIcon = null;
     
+
     
     //score of the game
     let score = 0;
+
+    //lives available at the start
+    let lives = 3;
 
     //maximum enemies that the screen can have
     const MAX_ENEMIES = 75;
@@ -216,7 +220,10 @@
     }
 
     function onKilled(){
+        //update the lives counter
+        lives = player.lives;
 
+        livesTotal.text = String(lives);
     }
 
     function onGameOver(){
