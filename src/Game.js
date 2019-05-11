@@ -18,6 +18,8 @@
     let gameOverCaption = null;
     let scoreCaption = null;
     let scoreTotal = null;
+    let livesTotal = null;
+    let playerIcon = null;
     
     
     //score of the game
@@ -135,6 +137,19 @@
         scoreTotal.y = 50;
         stage.addChild(scoreTotal);
 
+        livesTotal = new createjs.BitmapText("3",assetManager.getSpriteSheet("spritesheet"));
+        livesTotal.x = 65;
+        livesTotal.y = 25;
+        stage.addChild(livesTotal);
+
+        playerIcon = assetManager.getSprite("spritesheet");
+        playerIcon.gotoAndStop("PlayerIdle");
+        playerIcon.x = 30;
+        playerIcon.y = 50;
+        playerIcon.rotation = - 90;
+        stage.addChild(playerIcon);
+
+
         //game over screen
         gameOverCaption = assetManager.getSprite("spritesheet");
         gameOverCaption.gotoAndStop("GameOverCaption");
@@ -177,6 +192,7 @@
         console.log(">> The game is good to go!");
     }
 
+    //---------------------------------------------------------start/gameOver/reset
     function onStartGame(e){
         stage.removeChild(introCaption);
 
@@ -197,6 +213,10 @@
         document.onkeyup = onKeyUp;
 
         enemyManager.startGame();
+    }
+
+    function onKilled(){
+
     }
 
     function onGameOver(){
@@ -232,6 +252,7 @@
         stage.removeChild(gameOverCaption);
         stage.addChild(introCaption);
     }
+    
 
     function addPoints(enemy){
         //add points to the total
