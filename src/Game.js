@@ -230,6 +230,10 @@
         //show game over screen
         stage.addChild(gameOverCaption);
 
+        //show lives counter as 0
+        lives = player.lives;
+        livesTotal.text = String(lives);
+
         enemyManager.endGame();
 
         //setup reset game listener
@@ -251,6 +255,10 @@
         //set the score back to 0
         score = 0;
         scoreTotal.text = String(score);
+
+        //set lives back to 3
+        lives = 3;
+        livesTotal.text = String(lives);
         
         //reset the enemyManager
         enemyManager.resetGame();
