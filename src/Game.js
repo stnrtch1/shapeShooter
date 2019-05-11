@@ -129,31 +129,6 @@
         introCaption.y = 90;
         stage.addChild(introCaption);
 
-        //create score counter title
-        scoreCaption = assetManager.getSprite("spritesheet");
-        scoreCaption.gotoAndStop("ScoreCaption");
-        scoreCaption.x = 1000;
-        scoreCaption.y = 0;
-        stage.addChild(scoreCaption);
-
-        scoreTotal = new createjs.BitmapText("0", assetManager.getSpriteSheet("spritesheet"));
-        scoreTotal.x = 1000;
-        scoreTotal.y = 50;
-        stage.addChild(scoreTotal);
-
-        livesTotal = new createjs.BitmapText("3",assetManager.getSpriteSheet("spritesheet"));
-        livesTotal.x = 65;
-        livesTotal.y = 25;
-        stage.addChild(livesTotal);
-
-        playerIcon = assetManager.getSprite("spritesheet");
-        playerIcon.gotoAndStop("PlayerIdle");
-        playerIcon.x = 30;
-        playerIcon.y = 50;
-        playerIcon.rotation = - 90;
-        stage.addChild(playerIcon);
-
-
         //game over screen
         gameOverCaption = assetManager.getSprite("spritesheet");
         gameOverCaption.gotoAndStop("GameOverCaption");
@@ -199,6 +174,30 @@
     //---------------------------------------------------------start/gameOver/reset
     function onStartGame(e){
         stage.removeChild(introCaption);
+
+        //create score counter title
+        scoreCaption = assetManager.getSprite("spritesheet");
+        scoreCaption.gotoAndStop("ScoreCaption");
+        scoreCaption.x = 1000;
+        scoreCaption.y = 0;
+        stage.addChild(scoreCaption);
+
+        scoreTotal = new createjs.BitmapText("0", assetManager.getSpriteSheet("spritesheet"));
+        scoreTotal.x = 1000;
+        scoreTotal.y = 50;
+        stage.addChild(scoreTotal);
+
+        livesTotal = new createjs.BitmapText("3",assetManager.getSpriteSheet("spritesheet"));
+        livesTotal.x = 65;
+        livesTotal.y = 25;
+        stage.addChild(livesTotal);
+
+        playerIcon = assetManager.getSprite("spritesheet");
+        playerIcon.gotoAndStop("PlayerIdle");
+        playerIcon.x = 30;
+        playerIcon.y = 50;
+        playerIcon.rotation = - 90;
+        stage.addChild(playerIcon);
 
         //remove the click listener
         e.remove();
@@ -251,6 +250,12 @@
 
         //reset the player
         player.resetMe();
+
+        //remove the UI from the intro screen
+        stage.removeChild(scoreCaption);
+        stage.removeChild(scoreTotal);
+        stage.removeChild(livesTotal);
+        stage.removeChild(playerIcon);
 
         //set the score back to 0
         score = 0;
