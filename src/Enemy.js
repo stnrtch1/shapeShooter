@@ -28,6 +28,8 @@ class Enemy{
         this._alive = null;
         this._damaged = null;
         this._dead = null;
+        this._start = null;
+        this._charge = null;
         //health variable
         this._health = null;
         //can this enemy block bullets?
@@ -137,6 +139,8 @@ class Enemy{
             this._type = "Hexagon";
             this._points = 500;
             this._didHit = null;
+            this._start = "HexagonIn";
+            this._charge = "HexagonCharge";
             this._alive = "HexagonLaunch";
             this._dead = "HexagonExplosion";
             this._health = 1;
