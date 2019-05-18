@@ -191,7 +191,6 @@ class Enemy{
         //setup the enemy
         this._killed = false;
         
-        this._sprite.gotoAndPlay(this._alive);
         //set the position based on line number and position
         if (this._line == 1){
             this._sprite.y = 400;
@@ -221,18 +220,29 @@ class Enemy{
             this._sprite.x = 1200;
             this._sprite.mover.direction = Mover.LEFT;
         } else{
-            this._sprite.x = 0;
+            this._sprite.x = 30;
             this._sprite.mover.direction = Mover.RIGHT;
         } 
 
+        this._sprite.gotoAndPlay(this._alive);
         this._sprite.mover.speed = this._speed;
         this._sprite.mover.startMe();
+        
         createjs.Sound.play(this._spawnSound);
         //add the enemy to the stage
         this._stage.addChild(this._sprite);
+          
 
-        
+    }
 
+    hexagonSetup(){
+        //this function is for setting up the hexagon only
+        this._sprite.gotoAndPlay(this._start);
+        this._sprite.play();
+
+        createjs.Sound.play(this._spawnSound);
+        //add the enemy to the stage
+        this._stage.addChild(this._sprite);
     }
 
     updateMe(){
