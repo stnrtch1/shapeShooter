@@ -156,6 +156,22 @@ class Enemy{
         return Math.floor(Math.random()*11) + 1;
     }
 
+    hitMe(){
+        //the enemy is hit, lose some health
+        this._health--;
+
+        //check if the enemy is dead
+        if (this._health == 0){
+            //enemy is dead, kill them
+            this.killMe();
+        } else{
+            //the enemy isn't dead, they're damaged
+            this._sprite.gotoAndPlay(this._damaged); 
+        }
+
+
+    }
+
     killMe(){
         if (!this._killed){
             //enemy is dead
@@ -250,7 +266,7 @@ class Enemy{
                 let c = Math.sqrt((a*a) + (b*b));
                 if ((this._type == "Circle" || this._type == "Square" || this._type == "Star") && (c <= 40)){
                     if (!this._canBlock){
-                        this.killMe();
+                        this.hitMe();
                         this._stage.dispatchEvent(this._deadEvent);
                         createjs.Sound.play(this._deadSound);
                     }
@@ -260,7 +276,7 @@ class Enemy{
                     break;
                 } else if (this._type == "Rectangle" && (c <= 60)){
                     if (!this._canBlock){
-                        this.killMe();
+                        this.hitMe();
                         this._stage.dispatchEvent(this._deadEvent);
                         createjs.Sound.play(this._deadSound);
                     }
@@ -269,7 +285,7 @@ class Enemy{
                     break;
                 } else if (this._type == "Hexagon" && (c <= 25)){
                     if (!this._canBlock){
-                        this.killMe();
+                        this.hitMe();
                         this._stage.dispatchEvent(this._deadEvent);
                         createjs.Sound.play(this._deadSound);
                     }
