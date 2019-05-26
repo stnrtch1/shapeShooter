@@ -249,7 +249,8 @@ class Enemy{
         //add the enemy to the stage
         this._stage.addChild(this._sprite);
 
-        this._sprite.on("animationend",() => {
+        this._sprite.on("animationend",(e) => {
+            e.remove();
             this._sprite.gotoAndPlay(this._alive);
             this._sprite.mover.speed = this._speed;
             this._sprite.mover.startMe();
