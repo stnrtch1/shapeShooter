@@ -4,7 +4,6 @@ Bugs:
 - Hexagon Fade In Animation is not working
 
 To-Dos: 
-- Hexagon unique functions
 - Clean Up Scoring System
 - Add Shaking Effect For When Getting Hit
 - High Score Screen
