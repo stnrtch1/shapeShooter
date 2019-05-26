@@ -49,7 +49,7 @@ class Enemy{
 
         //grab the clip and add to the stage
         this._sprite = assetManager.getSprite("spritesheet");
-        this._sprite.mover = new Mover(this._sprite,stage);
+        
 
         //if the sprite goes off screen, it should be terminated automatically
         this._sprite.on("stageExit", this._offScreenKillMe, this);
@@ -190,6 +190,7 @@ class Enemy{
     setupMe(){
         //setup the enemy
         this._killed = false;
+        this._sprite.mover = new Mover(this._sprite,this._stage);
         
         //set the position based on line number and position
         if (this._line == 1){
@@ -224,25 +225,40 @@ class Enemy{
             this._sprite.mover.direction = Mover.RIGHT;
         } 
 
-        this._sprite.gotoAndPlay(this._alive);
-        this._sprite.mover.speed = this._speed;
-        this._sprite.mover.startMe();
+        //check if it's a hexagon being played and send it to it's setup
+        if (this._type == "Hexagon"){
+            this.hexagonSetup();
+        }else{
+            this._sprite.gotoAndPlay(this._alive);
+            this._sprite.mover.speed = this._speed;
+            this._sprite.mover.startMe();
+            
+            createjs.Sound.play(this._spawnSound);
+            //add the enemy to the stage
+            this._stage.addChild(this._sprite);
+        }
         
-        createjs.Sound.play(this._spawnSound);
-        //add the enemy to the stage
-        this._stage.addChild(this._sprite);
           
 
     }
 
     hexagonSetup(){
         //this function is for setting up the hexagon only
-        this._sprite.gotoAndPlay(this._start);
-        this._sprite.play();
+        this._sprite.gotoAndPlay(this._charge);
 
-        createjs.Sound.play(this._spawnSound);
         //add the enemy to the stage
         this._stage.addChild(this._sprite);
+
+        this._sprite.on("animationend",() => {
+            this._sprite.gotoAndPlay(this._alive);
+            this._sprite.mover.speed = this._speed;
+            this._sprite.mover.startMe();
+
+            createjs.Sound.play(this._spawnSound);
+
+        } ,this);
+        
+        
     }
 
     updateMe(){
@@ -327,6 +343,7 @@ class Enemy{
         //the enemy left the screen
         this._sprite.mover.stopMe();
         this._active = false;
+        this._type = null;
         this._stage.removeChild(this._sprite);
         //if a square or rectangle did not hit the player, reward some points for it
         if ((this._type == "Square" || this._type == "Rectangle") && this._didHit == false && this._player.killed != true){

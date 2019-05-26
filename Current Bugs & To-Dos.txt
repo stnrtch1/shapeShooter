@@ -1,10 +1,12 @@
 Bugs:
 - Random firing leads to some enemies not playing any animations
 - When an ememy is killed and playing their death animation, the player can not shoot any bullets until that animation ends.
+- Hexagon Fade In Animation is not working
 
 To-Dos: 
-- Lives Counter  
-- Hexagon and Star unique functions
+- Hexagon unique functions
+- Clean Up Scoring System
+- Add Shaking Effect For When Getting Hit
 - High Score Screen
 
 Future Stuff:
