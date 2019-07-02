@@ -66,7 +66,7 @@
 
     //---------------------------------------------------- event handlers
     function onKeyDown(e){
-        //this method needs to know what key is pressed and then start moving the snake
+        //this method needs to know what key is pressed and then start moving the player
         //console.log("key pressed down " + e.keyCode);
         if (e.keyCode == 37){
             keyLeft = true;
